@@ -5,6 +5,12 @@ GIT
     omnibus-openstack (0.0.1)
       omnibus
 
+GIT
+  remote: https://github.com/opscode/omnibus-software
+  revision: 2e9661de34c34d4aa30c467132d39c942afabc04
+  specs:
+    omnibus-software (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,3 +73,4 @@ PLATFORMS
 
 DEPENDENCIES
   omnibus-openstack!
+  omnibus-software!
