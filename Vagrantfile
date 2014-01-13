@@ -16,68 +16,15 @@ bootstrap_chef_version = '11.8.2'
 Vagrant.configure('2') do |config|
 
   %w{
-    centos-5.10
-    centos-6.5
-    freebsd-8.3
-    freebsd-9.1
-    smartos
-    ubuntu-10.04
-    ubuntu-11.04
     ubuntu-12.04
   }.each_with_index do |platform, index|
 
     config.vm.define platform do |c|
 
       case platform
-
-      ####################################################################
-      # SMARTOS-SPECIFIC CONFIG
-      ####################################################################
-      when 'smartos'
+      when 'ubuntu-12.04'
         use_nfs = false
-
-        c.vm.box = "smartos-base1310-64-virtualbox-20130806"
-        c.vm.box_url = "http://dlc-int.openindiana.org/aszeszo/vagrant/smartos-base1310-64-virtualbox-20130806.box"
-
-        # bootstrap chef
-        c.vm.provision :shell, :inline => <<-SMARTOS_SETUP
-          which ruby || pkgin -Fy install ruby193
-          which gcc || pkgin -Fy install gcc47
-          which make || pkgin -Fy install gmake
-
-          gem list chef -i -v #{bootstrap_chef_version} || \
-            gem install chef --version #{bootstrap_chef_version} --bindir=/opt/local/bin/ --no-ri --no-rdoc
-        SMARTOS_SETUP
-
-      ####################################################################
-      # FREEBSD-SPECIFIC CONFIG
-      ####################################################################
-      when /^freebsd/
-
-        use_nfs = true
-
-        # FreeBSD's mount_nfs does not like paths over 88 characters
-        # http://lists.freebsd.org/pipermail/freebsd-hackers/2012-April/038547.html
-        ENV['BERKSHELF_PATH'] = File.join('/tmp')
-
-        major_version = platform.split(/freebsd-(.*)\..*/).last
-
-        c.vm.guest = :freebsd
-        c.vm.box = "dyn-#{platform}"
-        c.vm.box_url = "http://dyn-vm.s3.amazonaws.com/vagrant/dyn-chef-11.4.0-virtualbox-#{platform}.box"
-        c.vm.network :private_network, :ip => "33.33.33.#{50 + index}"
-
-        c.vm.provision :shell, :inline => <<-FREEBSD_SETUP
-          sed -i '' -E 's%^([^#].*):setenv=%\1:setenv=PACKAGESITE=ftp://ftp.freebsd.org/pub/FreeBSD/ports/amd64/packages-#{major_version}-stable/Latest,%' /etc/login.conf
-        FREEBSD_SETUP
-
-      ####################################################################
-      # LINUX-SPECIFIC CONFIG
-      ####################################################################
-      else
-        use_nfs = false
-
-        c.vm.box = "opscode-#{platform}"
+        c.vm.box = platform
         c.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_#{platform}_chef-provisionerless.box"
         c.omnibus.chef_version = bootstrap_chef_version
 
@@ -113,27 +60,14 @@ Vagrant.configure('2') do |config|
           'omnibus' => {
             'build_user' => 'vagrant',
             'build_dir' => guest_project_path,
-            'install_dir' => "/opt/#{project_name}"
+            'install_dir' => "/opt/openstack"
           }
         }
-
         chef.run_list = [
-          'recipe[omnibus::default]'
+          'recipe[omnibus::default]',
+          'recipe[omnibus-openstack::default]'
         ]
       end
-
-      # We have to nuke any chef omnibus packages (used during provisioning) before
-      # we build new chef omnibus packages!
-      c.vm.provision :shell, :inline => <<-REMOVE_OMNIBUS
-        if command -v dpkg &>/dev/null;
-        then
-          sudo dpkg -P #{project_name} || true
-        elseif command -v rpm &>/dev/null;
-          sudo rpm -ev #{project_name} || true
-        else
-          sudo rm -r /opt/#{project_name} || true
-        fi
-      REMOVE_OMNIBUS
 
       c.vm.provision :shell, :inline => <<-OMNIBUS_BUILD
         sudo mkdir -p /opt/#{project_name}
@@ -142,7 +76,7 @@ Vagrant.configure('2') do |config|
         cd #{guest_project_path}
         sudo su vagrant -c "bundle install --path=/home/vagrant/.bundler"
         export CHEF_GIT_REV=#{ENV['CHEF_GIT_REV'] || 'master'}
-        sudo su vagrant -c "bundle exec omnibus-openstack build "
+        sudo su vagrant -c "bundle exec omnibus-openstack build -m /vagrant/openstack-config.json -c /tmp/omnibus-cache"
       OMNIBUS_BUILD
 
     end # config.vm.define.platform
