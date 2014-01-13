@@ -3,6 +3,11 @@
     "omnibus": {
       "locked_version": "1.2.2"
     },
+    "omnibus-openstack": {
+      "locked_version": "1.0.0",
+      "git": "git://github.com/craigtracey/cookbook-omnibus-openstack.git",
+      "ref": "759040ebc5c83589219b90adde8420b85a182574"
+    },
     "apt": {
       "locked_version": "1.9.2"
     },
