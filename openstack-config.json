@@ -1,8 +1,44 @@
 {
+    "cinder": {
+        "source": {
+            "version": "stable/havana",
+            "git": "https://github.com/openstack/cinder.git"
+        }
+    },
+    "glance": {
+        "source": {
+            "version": "stable/havana",
+            "git": "https://github.com/openstack/glance.git"
+        }
+    },
+    "horizon": {
+        "source": {
+            "version": "stable/havana",
+            "git": "https://github.com/openstack/horizon.git"
+        }
+    },
     "keystone": {
         "source": {
             "version": "stable/havana",
             "git": "https://github.com/openstack/keystone.git"
+        }
+    },
+    "neutron": {
+        "source": {
+            "version": "stable/havana",
+            "git": "https://github.com/openstack/neutron.git"
+        }
+    },
+    "nova": {
+        "source": {
+            "version": "stable/havana",
+            "git": "https://github.com/openstack/nova.git"
+        }
+    },
+    "swift": {
+        "source": {
+            "version": "stable/havana",
+            "git": "https://github.com/openstack/swift.git"
         }
     }
 }
