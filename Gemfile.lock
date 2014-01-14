@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/craigtracey/omnibus-openstack
-  revision: b69ed00e650b6c5d7f496bd300d534a2efe5200c
+  revision: 99731365bae09493d55e6d092ce1652464486ece
   specs:
-    omnibus-openstack (0.0.1)
+    omnibus-openstack (0.1.0)
       omnibus
 
 GIT
@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: https://github.com/opscode/omnibus-software
-  revision: 2e9661de34c34d4aa30c467132d39c942afabc04
+  revision: f37700aaa3752d98d2e3d38cb6704bd850efc8ba
   specs:
     omnibus-software (0.0.1)
 
