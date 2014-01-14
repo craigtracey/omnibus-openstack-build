@@ -32,7 +32,7 @@ Vagrant.configure('2') do |config|
           # Give enough horsepower to build without taking all day.
           vb.customize [
             'modifyvm', :id,
-            '--memory', '1536',
+            '--memory', '2048',
             '--cpus', '2'
           ]
         end
