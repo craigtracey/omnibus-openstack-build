@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/craigtracey/omnibus-ruby
-  revision: a842c2e28deced55f07762c23839c579f6999649
+  revision: 278ee76d32d69b5bcf5cfd7bd669b0fb0f38d105
   branch: overrides
   specs:
     omnibus (1.3.0)
