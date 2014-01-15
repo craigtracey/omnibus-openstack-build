@@ -1,0 +1,51 @@
+---
+# This is an example configuration manifest for omnibus-openstack. With this
+# manifest you cen instruct omnibus-openstack which projects you would like
+# to include, as well as provide specific versions/urls for the code. As yaml
+# parsers can parse both yaml and json, this file may also be provided in a
+# json format, if that suits your needs.
+
+keystone:
+  source:
+    version: "stable/havana"
+    git: "https://github.com/openstack/keystone.git"
+glance:
+  source:
+    version: "stable/havana"
+    git: "https://github.com/openstack/glance.git"
+nova:
+  source:
+    version: "stable/havana"
+    git: "https://github.com/openstack/nova.git"
+cinder:
+  source:
+    version: "stable/havana"
+    git: "https://github.com/openstack/cinder.git"
+horizon:
+  source:
+    version: "stable/havana"
+    git: "https://github.com/openstack/horizon.git"
+neutron:
+  source:
+    version: "stable/havana"
+    git: "https://github.com/openstack/neutron.git"
+
+
+keystoneclient:
+  source:
+    git: "https://github.com/openstack/python-keystoneclient.git"
+glanceclient:
+  source:
+    git: "https://github.com/openstack/python-glanceclient.git"
+novaclient:
+  source:
+    git: "https://github.com/openstack/python-novaclient.git"
+cinderclient:
+  source:
+    git: "https://github.com/openstack/python-cinderclient.git"
+horizonclient:
+  source:
+    git: "https://github.com/openstack/python-horizonclient.git"
+neutronclient:
+  source:
+    git: "https://github.com/openstack/python-neutronclient.git"
