@@ -76,7 +76,7 @@ Vagrant.configure('2') do |config|
         cd #{guest_project_path}
         sudo su vagrant -c "bundle install --path=/home/vagrant/.bundler"
         export CHEF_GIT_REV=#{ENV['CHEF_GIT_REV'] || 'master'}
-        sudo su vagrant -c "bundle exec omnibus-openstack build -m /vagrant/openstack-config.json -c /tmp/omnibus-cache"
+        sudo su vagrant -c "bundle exec omnibus-openstack build -m /vagrant/openstack-config.yml -c /tmp/.cache"
       OMNIBUS_BUILD
 
     end # config.vm.define.platform
