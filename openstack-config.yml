@@ -6,46 +6,44 @@
 # json format, if that suits your needs.
 
 keystone:
+  version: 'stable/havana'
   source:
-    version: "stable/havana"
-    git: "https://github.com/openstack/keystone.git"
+    git: 'https://github.com/openstack/keystone.git'
 glance:
+  version: 'stable/havana'
   source:
-    version: "stable/havana"
-    git: "https://github.com/openstack/glance.git"
+    git: 'https://github.com/openstack/glance.git'
 nova:
+  version: 'stable/havana'
   source:
-    version: "stable/havana"
-    git: "https://github.com/openstack/nova.git"
+    git: 'https://github.com/openstack/nova.git'
 cinder:
+  version: 'stable/havana'
   source:
-    version: "stable/havana"
-    git: "https://github.com/openstack/cinder.git"
+    git: 'https://github.com/openstack/cinder.git'
 horizon:
+  version: 'stable/havana'
   source:
-    version: "stable/havana"
-    git: "https://github.com/openstack/horizon.git"
+    git: 'https://github.com/openstack/horizon.git'
 neutron:
+  version: 'stable/havana'
   source:
-    version: "stable/havana"
-    git: "https://github.com/openstack/neutron.git"
+    git: 'https://github.com/openstack/neutron.git'
 
 
+# These will all build the default 'master'
 keystoneclient:
   source:
-    git: "https://github.com/openstack/python-keystoneclient.git"
+    git: 'https://github.com/openstack/python-keystoneclient.git'
 glanceclient:
   source:
-    git: "https://github.com/openstack/python-glanceclient.git"
+    git: 'https://github.com/openstack/python-glanceclient.git'
 novaclient:
   source:
-    git: "https://github.com/openstack/python-novaclient.git"
+    git: 'https://github.com/openstack/python-novaclient.git'
 cinderclient:
   source:
-    git: "https://github.com/openstack/python-cinderclient.git"
-horizonclient:
-  source:
-    git: "https://github.com/openstack/python-horizonclient.git"
+    git: 'https://github.com/openstack/python-cinderclient.git'
 neutronclient:
   source:
-    git: "https://github.com/openstack/python-neutronclient.git"
+    git: 'https://github.com/openstack/python-neutronclient.git'
