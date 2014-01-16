@@ -1,0 +1,11 @@
+{
+  "omnibus": {
+    "build_user": "root",
+    "build_dir": "/tmp/openstack",
+    "install_dir": "/opt/openstack"
+  },
+  "run_list": [
+    "recipe[omnibus::default]",
+    "recipe[omnibus-openstack::default]"
+  ]
+}
