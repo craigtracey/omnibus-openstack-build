@@ -61,9 +61,11 @@ curl -L https://www.opscode.com/chef/install.sh | bash
 export PATH=/opt/chef/embedded/bin/:$PATH
 gem install bundler --no-rdoc --no-ri
 
-mkdir -p $BUILD_DIR
-cd $BUILD_DIR
-git clone $GIT_REPO -b $GIT_BRANCH $BUILD_DIR/omnibus-openstack-build
+TEMPDIR=`mktemp -d`
+git clone $GIT_REPO -b $GIT_BRANCH $TEMPDIR/omnibus-openstack-build
+
+rm -rf $BUILD_DIR
+ln -s $TEMPDIR $BUILD_DIR
 
 cd $BUILD_DIR/omnibus-openstack-build
 bundle install
