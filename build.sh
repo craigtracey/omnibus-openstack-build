@@ -66,7 +66,7 @@ cd $BUILD_DIR
 git clone $GIT_REPO -b $GIT_BRANCH $BUILD_DIR/omnibus-openstack-build
 
 cd $BUILD_DIR/omnibus-openstack-build
-bundle install --path=$BUILD_DIR/.bundler
+bundle install
 bundle exec berks install --path cookbooks
 chef-solo -j solo.json -c solo.rb
 bundle exec omnibus-openstack build -m $OMNIBUS_MANIFEST -c /tmp/.cache
