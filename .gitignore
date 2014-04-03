@@ -1,5 +1,6 @@
 .bundle
 .vagrant
+.omnibus
 bin
 pkg
 Gemfile.lock
