@@ -7,22 +7,24 @@ usage()
 cat << EOF
 usage: $0 <options>
 
-A tool for building omnibus-openstack from within a VM or container.
+A tool for building omnibus-openstack within a Vagrant instance.
 
 OPTIONS:
    -h   this help message
    -m   manifest file to be passed omnibus-openstack
    -g   git repository to build against
    -b   git branch to use (default: master)
+   -p   provision only
 EOF
 }
 
 GIT_REPO="https://github.com/craigtracey/omnibus-openstack-build.git"
 GIT_BRANCH="master"
 OMNIBUS_MANIFEST="openstack-config.yml"
+
 BUILD_DIR="/tmp/omnibus-openstack"
 
-while getopts “hm:g:b:” OPTION
+while getopts “hm:g:b:t:” OPTION
 do
     case $OPTION in
         h)
@@ -70,5 +72,5 @@ ln -s $TEMPDIR $BUILD_DIR
 cd $BUILD_DIR/omnibus-openstack-build
 bundle install
 bundle exec berks install --path cookbooks
-chef-solo -j solo.json -c solo.rb
+chef-solo -j chef-solo/solo.json -c chef-solo/solo.rb
 bundle exec omnibus-openstack build -m $OMNIBUS_MANIFEST -c /tmp/.cache

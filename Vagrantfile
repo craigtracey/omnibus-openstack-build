@@ -42,8 +42,8 @@ Vagrant.configure('2') do |config|
       config.vm.synced_folder '.', '/vagrant', :id => 'vagrant-root', :nfs => use_nfs
 
       c.vm.provision :shell, :inline => <<-OMNIBUS_BUILD
-        chmod +x /vagrant/build.sh
-        sudo /vagrant/build.sh -b #{omnibus_branch} -m /vagrant/#{manifest_file}
+        chmod +x /vagrant/.omnibus_builder.sh
+        sudo /vagrant/.omnibus_builder.sh -b #{omnibus_branch} -m /vagrant/#{manifest_file}
       OMNIBUS_BUILD
 
     end # config.vm.define.platform

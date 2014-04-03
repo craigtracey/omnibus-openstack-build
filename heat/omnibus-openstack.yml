@@ -1,0 +1,51 @@
+heat_template_version: 2013-05-23
+
+description: Template to spin up and execute an omnibus-openstack build
+
+parameters:
+  key_name:
+    type: string
+    label: Key Name
+    description: Name of key-pair to be used for compute instance
+  image_id:
+    type: string
+    label: Image ID
+    description: Image to be used for compute instance
+  instance_type:
+    type: string
+    label: Instance Type
+    description: Type of instance (flavor) to be used
+  floating_ip_net_id:
+    type: string
+    label: Floating IP Network ID
+    description: Network to add floating ip from
+  network_id:
+    type: string
+    label: Instance NIC Network ID
+    description: Network ID for instance's NIC
+
+resources:
+  omnibus_fip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network_id: { get_param: floating_ip_net_id }
+
+  omnibus_instance:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      image: { get_param: image_id }
+      flavor: { get_param: instance_type }
+      networks:
+        - network: { get_param: network_id }
+
+  omnibus_fip_associate:
+    type: OS::Nova::FloatingIPAssociation
+    properties:
+      floating_ip: { get_resource: omnibus_fip }
+      server_id: { get_resource: omnibus_instance }
+
+outputs:
+  omnibus_fip:
+    description: floating IP address of the omnibus build instance
+    value: { get_attr: [ omnibus_fip, floating_ip_address ] }

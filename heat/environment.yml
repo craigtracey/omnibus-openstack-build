@@ -1,0 +1,6 @@
+parameters:
+  key_name: openstack
+  image_id: 014f8214-37b0-4920-b7ce-ec05edc253fb
+  instance_type: m1.large
+  floating_ip_net_id: 06dc9d5a-f55a-410d-a7fd-4c7cb34ad927
+  network_id: ba0fdd03-72b5-41eb-bb67-fef437fd6cb4
