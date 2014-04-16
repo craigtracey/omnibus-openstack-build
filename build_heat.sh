@@ -100,7 +100,6 @@ wait_for_ssh() {
     LIMIT=60
     I=0
     while [ $I -le "$LIMIT" ]; do
-        echo "ssh -q -i $KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $USER@$STACK_FIP exit"
         if ssh -q -i $KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $USER@$STACK_FIP exit; then
             break
         fi
@@ -111,7 +110,6 @@ wait_for_ssh() {
 
 if [ "$PROVISION_ONLY" == "0" ]; then
     echo "Launching build stack ($STACK_NAME)..."
-    echo "heat stack-create -f "./heat/omnibus-openstack.yml" -e "$HEAT_ENVIRONMENT" $STACK_NAME"
     heat stack-create -f "./heat/omnibus-openstack.yml" -e "$HEAT_ENVIRONMENT" $STACK_NAME >> /dev/null
     wait_for_stack $STACK_NAME
 fi
@@ -132,6 +130,6 @@ scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $OMNIBUS_BUIL
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $OMNIBUS_BUILD_KEY $OMNIBUS_BUILD_USER@$OMNIBUS_FIP "bash -c 'chmod +x /tmp/.omnibus_builder.sh && sudo /tmp/.omnibus_builder.sh -m /tmp/.omnibus_manifest.yml -b $GIT_BRANCH -g $GIT_REPO'"
 
 mkdir -p pkg
-scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $OMNIBUS_BUILD_KEY $OMNIBUS_BUILD_USER@$OMNIBUS_FIP:/tmp/omnibus-openstack/pkg/* pkg
+scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $OMNIBUS_BUILD_KEY $OMNIBUS_BUILD_USER@$OMNIBUS_FIP:/tmp/omnibus-openstack/omnibus-openstack-build/pkg/* pkg/
 
 echo "DONE"
